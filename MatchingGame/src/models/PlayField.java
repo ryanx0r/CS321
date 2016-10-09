@@ -18,7 +18,7 @@ public class PlayField
     //Number of types of tiles
     private int tileVariation = 5;
     //Makes the playfield gridSize X gridSize
-    private int gridSize = 8;
+    private int gridSize = 7;
     //2D array of tiles for the playing field
     private final Tile[][] tiles = new Tile[gridSize][gridSize];
     //Boolean to check if a tile is currently selected
@@ -213,7 +213,7 @@ public class PlayField
                     else if (numDeleted == 0)
                     {
                         Tile tempTile;
-                        tiles[i][j].moveDown(1);
+                        tiles[i][j].moveDown();
                         tiles[i+1][j].moveUp();
                         //Move tiles around in the array to match their new location
                         tempTile = tiles[i][j];
@@ -232,7 +232,7 @@ public class PlayField
         else if ((prevTile.getX() == tiles[i][j].getX()) && (prevTile.getY()+100 == tiles[i][j].getY()))
         {
             this.tiles[i][j].moveUp();
-            this.prevTile.moveDown(1);
+            this.prevTile.moveDown();
             //Move tiles around in the array to match their new location
             tempTile = this.tiles[i][j];
             this.tiles[i][j] = this.tiles[i-1][j];
@@ -252,7 +252,7 @@ public class PlayField
                     {
                         Tile tempTile;
                         tiles[i][j].moveUp();
-                        tiles[i-1][j].moveDown(1);
+                        tiles[i-1][j].moveDown();
                         //Move tiles around in the array to match their new location
                         tempTile = tiles[i][j];
                         tiles[i][j] = tiles[i-1][j];
@@ -329,7 +329,7 @@ public class PlayField
         if (matchFound)
         {
             //Wait a moment then adjust the tiles after deletions
-            try {Thread.sleep(250);} catch (Exception e) {}
+            try {Thread.sleep(150);} catch (Exception e) {}
             deleteMarkedTiles();
             try {Thread.sleep(150);} catch (Exception e) {}
             adjustTiles();
@@ -385,16 +385,16 @@ public class PlayField
     public void deleteMarkedTiles()
     {
         //Loop through and set tiles marked for deletion to null
-        for (int x = 0; x < gridSize; x++)
+        for (int y = 0; y < gridSize; y++)
         {
-            for (int y = 0; y < gridSize; y++)
+            for (int x = 0; x < gridSize; x++)
             {
                 //Remove each tile marked for removal
-                if ((tiles[x][y] != null) && tiles[x][y].getStatus())
+                if ((tiles[y][x] != null) && tiles[y][x].getStatus())
                 {
                     this.tilesFull = false;
                     this.numDeleted++;
-                    tiles[x][y] = null;
+                    deleteTile(y,x);
                 }
             }
         }
@@ -432,10 +432,11 @@ public class PlayField
             }
         }
         //Add new tiles if needed
+        try {Thread.sleep(150);} catch (Exception e) {}
         addTiles();
         if (this.tilesFull)
         {
-            try {Thread.sleep(maxMovement*400);} catch (Exception e) {}
+            //try {Thread.sleep(maxMovement*200);} catch (Exception e) {}
             scanForMatch();
         }
         this.playfieldBusy = false;

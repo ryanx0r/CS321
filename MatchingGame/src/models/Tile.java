@@ -4,8 +4,9 @@
  */
 package models;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Handles the data model for each tile contained on the play field.
@@ -21,6 +22,9 @@ public class Tile
 
     private int alpha;
     
+    //Delay time for the movements
+    private int animDelay;
+    
     //Index of the tile type
     private int tileType;
     
@@ -35,6 +39,7 @@ public class Tile
         this.alpha = 127;
         this.tileType = type;
         this.flaggedForDelete = false;
+        this.animDelay = 30;
     }
     
     //See if this tile should be removed
@@ -89,20 +94,23 @@ public class Tile
     public void moveUp()
     {
         unHighlight();
-        Timer tempTime;
-        tempTime = new Timer();
-        tempTime.scheduleAtFixedRate(new TimerTask() {
-            int i = 10;
+        //Create a scheduled thread
+        ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
+        //Create a new runnable to run in the thread that moves the tile
+        Runnable movement = new Runnable() {
+            int i = 4;
             @Override
             public void run() {
-                currY = currY-10;
+                currY = currY-25;
                 i--;
                 if (i < 1)
                 {
-                    tempTime.cancel();
+                    schedule.shutdownNow();
                 }
             }
-        }, 0, 10);
+        };
+        //Start the thread with fixed delay on a schedule
+        schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
     
     //Move the tile down one segment
@@ -110,80 +118,91 @@ public class Tile
     public void moveDown(int multiple)
     {
         unHighlight();
-        Timer tempTime;
-        tempTime = new Timer();
-        tempTime.scheduleAtFixedRate(new TimerTask() {
-            int i = multiple*10;
+        //Create a scheduled thread
+        ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
+        //Create a new runnable to run in the thread that moves the tile
+        Runnable movement = new Runnable() {
+            int i = 4*multiple;
             @Override
             public void run() {
-                currY = currY+10;
+                currY = currY+25;
                 i--;
                 if (i < 1)
                 {
-                    tempTime.cancel();
+                    schedule.shutdownNow();
                 }
             }
-        }, 0, 10);
+        };
+        //Start the thread with fixed delay on a schedule
+        schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
-    
     //Without multiple
     public void moveDown()
     {
         unHighlight();
-        Timer tempTime;
-        tempTime = new Timer();
-        tempTime.scheduleAtFixedRate(new TimerTask() {
-            int i = 10;
+        //Create a scheduled thread
+        ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
+        //Create a new runnable to run in the thread that moves the tile
+        Runnable movement = new Runnable() {
+            int i = 4;
             @Override
             public void run() {
-                currY = currY+10;
+                currY = currY+25;
                 i--;
                 if (i < 1)
                 {
-                    tempTime.cancel();
+                    schedule.shutdownNow();
                 }
             }
-        }, 0, 10);
+        };
+        //Start the thread with fixed delay on a schedule
+        schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
     
     //Move the tile left one segment
     public void moveLeft()
     {
         unHighlight();
-        Timer tempTime;
-        tempTime = new Timer();
-        tempTime.scheduleAtFixedRate(new TimerTask() {
-            int i = 10;
+        //Create a scheduled thread
+        ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
+        //Create a new runnable to run in the thread that moves the tile
+        Runnable movement = new Runnable() {
+            int i = 4;
             @Override
             public void run() {
-                currX = currX-10;
+                currX = currX-25;
                 i--;
                 if (i < 1)
                 {
-                    tempTime.cancel();
+                    schedule.shutdownNow();
                 }
             }
-        }, 0, 10);
+        };
+        //Start the thread with fixed delay on a schedule
+        schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
     
     //Move the tile right one segment
     public void moveRight()
     {
         unHighlight();
-        Timer tempTime;
-        tempTime = new Timer();
-        tempTime.scheduleAtFixedRate(new TimerTask() {
-            int i = 10;
+        //Create a scheduled thread
+        ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
+        //Create a new runnable to run in the thread that moves the tile
+        Runnable movement = new Runnable() {
+            int i = 4;
             @Override
             public void run() {
-                currX = currX+10;
+                currX = currX+25;
                 i--;
                 if (i < 1)
                 {
-                    tempTime.cancel();
+                    schedule.shutdownNow();
                 }
             }
-        }, 0, 10);
+        };
+        //Start the thread with fixed delay on a schedule
+        schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
     
     //Highlight the clicked tile

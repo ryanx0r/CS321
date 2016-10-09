@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ryan/Documents/NetBeansProjects/MatchingGame/src/views/GameView.java</file>
-            <file>file:/C:/Users/Ryan/Documents/NetBeansProjects/MatchingGame/src/views/EllipseView.java</file>
-            <file>file:/C:/Users/Ryan/Documents/NetBeansProjects/MatchingGame/src/models/PlayField.java</file>
-            <file>file:/C:/Users/Ryan/Documents/NetBeansProjects/MatchingGame/src/views/TileView.java</file>
-            <file>file:/C:/Users/Ryan/Documents/NetBeansProjects/MatchingGame/src/controller/MatchingMain.java</file>
-            <file>file:/C:/Users/Ryan/Documents/NetBeansProjects/MatchingGame/src/models/Tile.java</file>
-            <file>file:/C:/Users/Ryan/Documents/NetBeansProjects/MatchingGame/src/views/ImageView.java</file>
+            <file>file:/C:/Users/Ryanx0r/Documents/NetBeansProjects/MatchingGame/src/models/PlayField.java</file>
+            <file>file:/C:/Users/Ryanx0r/Documents/NetBeansProjects/MatchingGame/src/views/GameView.java</file>
+            <file>file:/C:/Users/Ryanx0r/Documents/NetBeansProjects/MatchingGame/src/views/EllipseView.java</file>
+            <file>file:/C:/Users/Ryanx0r/Documents/NetBeansProjects/MatchingGame/src/views/TileView.java</file>
+            <file>file:/C:/Users/Ryanx0r/Documents/NetBeansProjects/MatchingGame/src/models/Tile.java</file>
         </group>
     </open-files>
 </project-private>
