@@ -33,7 +33,7 @@ public class GameView extends JPanel
     private int tileType = 0;
     
     private int[][] colors;
-    private String[] images;
+    private Image[] images;
     
     private Image bgImage;
     
@@ -46,7 +46,7 @@ public class GameView extends JPanel
         //Set up colors for tiles that use them
         colors = new int[tileVariation][3];
         //Set up images for tiles that use them
-        images = new String[tileVariation];
+        images = new Image[tileVariation];
         setColors();
     }
     
@@ -119,7 +119,7 @@ public class GameView extends JPanel
         {
             for (int i = 0; i < tileVariation; i++)
             {
-                images[i] = "src/images/planet" + i + ".png";
+                images[i] = Toolkit.getDefaultToolkit().getImage("src/images/planet" + i + ".png");
             }
         }
         //Fruit images
@@ -127,7 +127,7 @@ public class GameView extends JPanel
         {
             for (int i = 0; i < tileVariation; i++)
             {
-                images[i] = "src/images/fruit" + i + ".png";
+                images[i] = Toolkit.getDefaultToolkit().getImage("src/images/fruit" + i + ".png");
             }
         }
     }

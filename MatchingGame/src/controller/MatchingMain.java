@@ -311,7 +311,7 @@ public class MatchingMain extends javax.swing.JFrame
                 {
                     glassPane.setVisible(false);
                 }
-                repaint();
+                gv.repaint();
                 if (t < 0)
                 {
                     paintTimer.cancel();

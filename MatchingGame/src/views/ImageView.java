@@ -24,7 +24,7 @@ public class ImageView extends TileView
     private float alpha;
     private AlphaComposite composite;
     
-    public ImageView(int alpha, int x, int y, int tileSize, String img)
+    public ImageView(int alpha, int x, int y, int tileSize, Image img)
     {
         this.x = x;
         this.y = y;
@@ -38,9 +38,9 @@ public class ImageView extends TileView
             this.alpha = 1f;
         }
         this.tileSize = tileSize;
-        alphaType = AlphaComposite.SRC_OVER; 
+        this.alphaType = AlphaComposite.SRC_OVER; 
         //Set up the image object
-        theImage = Toolkit.getDefaultToolkit().getImage(img);
+        this.theImage = img;
     }
     
     //Override paintcomponent to draw the tile
@@ -52,9 +52,9 @@ public class ImageView extends TileView
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //Set the alpha appropriately
-        composite = AlphaComposite.getInstance(alphaType, alpha);
-        g2d.setComposite(composite);
+        this.composite = AlphaComposite.getInstance(this.alphaType, this.alpha);
+        g2d.setComposite(this.composite);
         //Draw the image
-        g2d.drawImage(theImage, this.x, this.y, this.tileSize, this.tileSize, null);
+        g2d.drawImage(this.theImage, this.x, this.y, this.tileSize, this.tileSize, null);
     }
 }
