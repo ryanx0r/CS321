@@ -107,17 +107,17 @@ public class MatchingMain extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Match Madness");
         setBackground(new java.awt.Color(0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(970, 825));
-        setMinimumSize(new java.awt.Dimension(970, 825));
-        setPreferredSize(new java.awt.Dimension(970, 825));
+        setMaximumSize(new java.awt.Dimension(900, 760));
+        setMinimumSize(new java.awt.Dimension(900, 760));
+        setPreferredSize(new java.awt.Dimension(900, 760));
         setResizable(false);
-        setSize(new java.awt.Dimension(970, 825));
+        setSize(new java.awt.Dimension(900, 760));
 
         menuPanel.setBackground(new java.awt.Color(0, 0, 0));
         menuPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        menuPanel.setMaximumSize(new java.awt.Dimension(160, 800));
-        menuPanel.setMinimumSize(new java.awt.Dimension(160, 800));
-        menuPanel.setPreferredSize(new java.awt.Dimension(160, 800));
+        menuPanel.setMaximumSize(new java.awt.Dimension(160, 720));
+        menuPanel.setMinimumSize(new java.awt.Dimension(160, 720));
+        menuPanel.setPreferredSize(new java.awt.Dimension(160, 720));
 
         startButton.setText("New Game");
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +153,7 @@ public class MatchingMain extends javax.swing.JFrame
                         .addComponent(timer))
                     .addComponent(typeComboLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(0, Short.MAX_VALUE))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,21 +174,23 @@ public class MatchingMain extends javax.swing.JFrame
         timeText.getAccessibleContext().setAccessibleDescription("");
 
         testPanel.setBackground(new java.awt.Color(0, 0, 0));
-        testPanel.setMaximumSize(new java.awt.Dimension(800, 800));
-        testPanel.setMinimumSize(new java.awt.Dimension(800, 800));
+        testPanel.setMaximumSize(new java.awt.Dimension(720, 720));
+        testPanel.setMinimumSize(new java.awt.Dimension(720, 720));
+        testPanel.setPreferredSize(new java.awt.Dimension(720, 720));
 
-        gv.setMaximumSize(new java.awt.Dimension(800, 800));
-        gv.setMinimumSize(new java.awt.Dimension(800, 800));
+        gv.setMaximumSize(new java.awt.Dimension(720, 720));
+        gv.setMinimumSize(new java.awt.Dimension(720, 720));
+        gv.setPreferredSize(new java.awt.Dimension(720, 720));
 
         javax.swing.GroupLayout gvLayout = new javax.swing.GroupLayout(gv);
         gv.setLayout(gvLayout);
         gvLayout.setHorizontalGroup(
             gvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
+            .addGap(0, 718, Short.MAX_VALUE)
         );
         gvLayout.setVerticalGroup(
             gvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
+            .addGap(0, 718, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout testPanelLayout = new javax.swing.GroupLayout(testPanel);
@@ -218,8 +220,8 @@ public class MatchingMain extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(menuPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(testPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(menuPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                    .addComponent(testPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(145, 145, 145))
         );
 
