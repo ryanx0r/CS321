@@ -9,6 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import models.PlayField;
 import models.Tile;
 import javax.swing.JPanel;
@@ -153,7 +156,7 @@ public class MatchingMain extends javax.swing.JFrame
                         .addComponent(timer))
                     .addComponent(typeComboLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(0, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,17 +215,13 @@ public class MatchingMain extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(testPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(menuPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                    .addComponent(testPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(145, 145, 145))
+            .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(testPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -271,6 +270,7 @@ public class MatchingMain extends javax.swing.JFrame
                     gameTime.cancel();
                     pf.clearPlayfield();
                     gv.clearGame();
+                    gv.resetBg();
                     startButton.setEnabled(true);
                     typeDropdown.setEnabled(true);
                     repaint();
@@ -280,9 +280,11 @@ public class MatchingMain extends javax.swing.JFrame
         
         //Schedule a repaint at set time intervals for rendering changes made by the controller/playfield
         //Draw new tileset every refresh
-        paintTimer = new Timer();
-        paintTimer.scheduleAtFixedRate(new TimerTask() {
-            int t = 3000;
+        ScheduledExecutorService gameSchedule = Executors.newScheduledThreadPool(1);
+        //paintTimer = new Timer();
+        Runnable gamePainter = new Runnable() {
+        //paintTimer.scheduleAtFixedRate(new TimerTask() {
+            int t = 2400;
             @Override
             public void run() {
                 gv.clearGame();
@@ -316,14 +318,17 @@ public class MatchingMain extends javax.swing.JFrame
                 gv.repaint();
                 if (t < 0)
                 {
-                    paintTimer.cancel();
+                    //paintTimer.cancel();
+                    gameSchedule.shutdownNow();
                     pf.clearPlayfield();
                     gv.clearGame();
                     gv.resetBg();
                     repaint();
                 }
             }
-        }, 0, 20);
+        };
+        //, 0, 20)
+        gameSchedule.scheduleWithFixedDelay(gamePainter, 0, 25, TimeUnit.MILLISECONDS);
         this.validate();
     }//GEN-LAST:event_startButtonActionPerformed
 

@@ -119,7 +119,7 @@ public class GameView extends JPanel
         {
             for (int i = 0; i < tileVariation; i++)
             {
-                images[i] = Toolkit.getDefaultToolkit().getImage("src/images/planet" + i + ".png");
+                images[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/planet" + i + ".png"));
             }
         }
         //Fruit images
@@ -127,7 +127,7 @@ public class GameView extends JPanel
         {
             for (int i = 0; i < tileVariation; i++)
             {
-                images[i] = Toolkit.getDefaultToolkit().getImage("src/images/fruit" + i + ".png");
+                images[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/fruit" + i + ".png"));
             }
         }
     }
