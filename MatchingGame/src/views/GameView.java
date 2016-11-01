@@ -102,7 +102,7 @@ public class GameView extends JPanel
     //Set up background image for planets tile set
     public void setBg()
     {
-        bgImage = Toolkit.getDefaultToolkit().getImage("src/images/bg.jpg");
+        bgImage = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/bg.jpg"));
     }
     
     //reset the bg image to null
