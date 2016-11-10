@@ -1,6 +1,7 @@
 /*
- * Written by Ryan Manecke
- * For UAH CS 321
+ * CS321 Group Project
+ * By: Ryan Manecke, Sarah Pearce, Collin Mitchell
+ * Matching Madness Game
  */
 package models;
 
@@ -9,8 +10,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
- * Handles the data model for each tile contained on the play field.
- * @author Ryanx0r
+ * This class handles the data model for each tile contained on the play field.
+ * Handles the virtual movement of itself.
+ * @author Ryan Manecke, Sarah Pearce, Collin Mitchell
  */
 public class Tile
 {

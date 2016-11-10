@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CS321 Group Project
+ * By: Ryan Manecke, Sarah Pearce, Collin Mitchell
+ * Matching Madness Game
  */
 package views;
 
@@ -16,7 +16,9 @@ import javax.swing.BorderFactory;
 
 /**
  * This class handles the actual drawing of the game panel.
- * @author Ryan
+ * It contains an array list of TileView objects that represent actual tiles on the screen.
+ * It is a subclass of JPanel.
+ * @author Ryan Manecke, Sarah Pearce, Collin Mitchell
  */
 public class GameView extends JPanel
 {
@@ -32,12 +34,18 @@ public class GameView extends JPanel
     //Tile type defaulted to 0
     private int tileType = 0;
     
+    //Arrays of colors and image objects, depending on tile type selected
     private int[][] colors;
     private Image[] images;
     
     private Image bgImage;
     
     //Constructor
+    /**
+     * This is the default constructor the the GameView.
+     * It sets the basic JPanel properties.
+     * It also sets up randomized colors.
+     */
     public GameView()
     {        
         this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -50,44 +58,61 @@ public class GameView extends JPanel
         setColors();
     }
     
-    //Set tile type (ellipse = 0, image = 1)
+    /**
+     * This method sets the tile type that will be used on the game.
+     * Type 0 (not passed in) is for the ellipse view type.
+     * Type 1..n use different images for the image view type.
+     * @param type An integer passed in that will decide what image style to use.
+     */
     public void setTileType(int type)
     {
         this.tileType = type;
+        //If the tile type was 1
         if (type == 1)
         {
             setBg();
             setImages(1);
         }
+        //If the tile type was 2
         else if (type == 2)
         {
             setImages(2);
         }
     }
     
-    //Add a tile
+    /**
+     * This method adds a tile to the GameView panel.
+     * It will be passed an array of data that comes from the PlayField model.
+     * @param tileData An array of data pulled from the PlayField model containing location and type information for the tile.
+     */
     public void addTile(int[] tileData)
     {
-        //ellipse tile
+        //Ellipse tile
         if (tileType == 0)
         {
             //Create a new tile based on the array passed in
             //r,g,b,alpha,x,y,tilesize
             tiles.add(new EllipseView(colors[tileData[0]][0],colors[tileData[0]][1],colors[tileData[0]][2],tileData[1],tileData[2],tileData[3], tileSize));
         }
+        //ImageView tile types
         else if ((tileType == 1) || (tileType == 2))
         {
             tiles.add(new ImageView(tileData[1], tileData[2], tileData[3], tileSize, images[tileData[0]]));
         }
     }
     
-    //Remove the tiles
+    /**
+     * This method removes all of the tiles from the view by clearing them from the ArrayList.
+     */
     public void clearGame()
     {
         tiles.clear();
     }
     
-    //Create listing of colors if colored tiles are used
+    /**
+     * This method creates an array of RGB color values from 0 to 255.
+     * This array is only used for the EllipseView tile type, or other non-image tile types.
+     */
     public void setColors()
     {
         //Fill colors array with randomly generated rgb values
@@ -99,19 +124,28 @@ public class GameView extends JPanel
         }
     }
     
-    //Set up background image for planets tile set
+    /**
+     * This method sets the background image for the specific tile type selected.
+     */
     public void setBg()
     {
         bgImage = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/bg.jpg"));
     }
     
-    //reset the bg image to null
+    /**
+     * This method resets the background image at the end of a game.
+     */
     public void resetBg()
     {
         bgImage = null;
     }
     
-    //Create a listing of images for planets tile set
+    //
+    /**
+     * This method creates a listing of images for the specified tile type.
+     * It loads them all into the images array.
+     * @param type An integer argument passed in that will be used to load the proper images.
+     */
     public void setImages(int type)
     {
         //Planets images
@@ -132,6 +166,10 @@ public class GameView extends JPanel
         }
     }
     
+    /**
+     * This function does the actual drawing of the panel to the screen.
+     * @param g A graphics component passed in by Java swing when paintComponent or repaint is called.
+     */
     @Override
     public void paintComponent(Graphics g)
     {
@@ -145,11 +183,11 @@ public class GameView extends JPanel
         }
         
         //Paint each tile
-        //Create a temporary arraylist to prevent exceptions
+        //Create a temporary arraylist to help prevent exceptions
         ArrayList<TileView> toPaint = new ArrayList();
         for (TileView temp : tiles) 
         {
-                toPaint.add(temp);
+            toPaint.add(temp);
         }
         for (TileView tile : toPaint)
         {

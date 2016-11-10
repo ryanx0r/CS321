@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CS321 Group Project
+ * By: Ryan Manecke, Sarah Pearce, Collin Mitchell
+ * Matching Madness Game
  */
 package models;
 
@@ -11,14 +11,18 @@ import java.util.TimerTask;
 
 /**
  * This class handles the actual data model for the game.
- * @author Ryan
+ * It contains an array of Tile objects.
+ * It will swap the virtual location of tile objects within the array.
+ * It checks for type matches of greater than 3 in a row vertically and horizontally.
+ * 
+ * @author Ryan Manecke, Sarah Pearce, Collin Mitchell
  */
 public class PlayField
 {
     //Number of types of tiles
-    private int tileVariation = 5;
-    //Makes the playfield gridSize X gridSize
-    private int gridSize = 7;
+    private final int tileVariation = 5;
+    //Makes the playfield gridSize by gridSize
+    private final int gridSize = 7;
     //2D array of tiles for the playing field
     private final Tile[][] tiles = new Tile[gridSize][gridSize];
     //Boolean to check if a tile is currently selected
@@ -33,7 +37,9 @@ public class PlayField
     
     private int numDeleted;
     
-    //Initialize playfield
+    /**
+     * This function is the initializer for the playfield
+     */
     public PlayField()
     {
         this.tileHighlighted = false;
@@ -42,19 +48,29 @@ public class PlayField
         this.numDeleted = 0;
     }
     
-    //Get grid size
+    /**
+     * This function returns the size of the grid
+     * @return gridSize Returns an integer value for the size of the game grid.
+     */
     public int getGridSize()
     {
         return this.gridSize;
     }
-    
-    //Check if clicks are allowed right now, disable clicks while working
+
+    /**
+     * This function checks if the playfield is currently busy with processes.
+     * @return playfieldBusy A boolean value is returned indicating true if the playfield 
+     *                          is currently busy working.
+     */
     public boolean checkIfBusy()
     {
         return this.playfieldBusy;
     }
-    
-    //See if tile is highlighted
+ 
+    /**
+     * This function checks/returns if a current tile has been selected by the user.
+     * @return tileHighlighted A boolean value which is true if a tile has been selected.
+     */
     public boolean isTileHighlighted()
     {
         return this.tileHighlighted;

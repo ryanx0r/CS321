@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CS321 Group Project
+ * By: Ryan Manecke, Sarah Pearce, Collin Mitchell
+ * Matching Madness Game
  */
 package controller;
 
@@ -17,22 +17,25 @@ import models.Tile;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Ryan
+ * This is the main controller for the game.
+ * This class creates the JFrame and all necessary JPanels.
+ * It provides the portal for user input to the game and draws 
+ * the game to the screen.
+ * @author Ryan Manecke, Sarah Pearce, Collin Mitchell
  */
 public class MatchingMain extends javax.swing.JFrame
 {
-    private Timer gameTime;
-    private Timer paintTimer;
     private PlayField pf;
     private JPanel glassPane;
     
     /**
-     * Creates new form MatchingMain
+     * This is the default constructor for MatchingMain.
+     * It creates the PlayField object and initializes a mouse press listener.
      */
     public MatchingMain() {
         initComponents();
         
+        //Create a play field model
         pf = new PlayField();
         
         glassPane = new JPanel();
@@ -50,15 +53,18 @@ public class MatchingMain extends javax.swing.JFrame
         //Add a mouse pressed listener to the playfield
         gv.addMouseListener(new MouseAdapter()
         {
+            //Override the mousePressed event
             @Override
             public void mousePressed(MouseEvent click)
             {
                 super.mousePressed(click);
+                //If the play field is busy don't allow new clicks
                 if (pf.checkIfBusy())
                 {
                     click.consume();
                     return;
                 }
+                //Loop through and find where the user clicked on the playfield
                 for (int i = 0; i < pf.getGridSize(); i++)
                 {
                     for (int j = 0; j < pf.getGridSize(); j++)
@@ -156,7 +162,7 @@ public class MatchingMain extends javax.swing.JFrame
                         .addComponent(timer))
                     .addComponent(typeComboLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(0, Short.MAX_VALUE))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,14 +233,17 @@ public class MatchingMain extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //New game button pressed
+    /**
+     * This method starts up the game and runs the game timers.
+     * @param evt An event that is triggered when the new game button is pressed.
+     */
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         //Create a playfield and add it to the panel
         pf.buildTiles();
-        //Draw tiles to the view based on user selection
+        //Draw tiles to the view based on user selection in the dropdown box
         gv.setTileType(typeDropdown.getSelectedIndex());
         
-        //Disable the button so it can't be pressed again during play
+        //Disable the button and dropdown so they can't be pressed again during play
         startButton.setEnabled(false);
         typeDropdown.setEnabled(false);
         
@@ -252,32 +261,12 @@ public class MatchingMain extends javax.swing.JFrame
                     temp2[1] = temp.getAlpha();
                     temp2[2] = temp.getX();
                     temp2[3] = temp.getY();
+                    //Tell the GameView to add a tile to the screen with these settings
                     gv.addTile(temp2);
                 }
             }
         }
-        
-        //Start timer for the new game
-        gameTime = new Timer();
-        gameTime.scheduleAtFixedRate(new TimerTask() {
-            int i = 60;
-            @Override
-            public void run() {
-                //Subtract from the time counter
-                timer.setText(String.valueOf(i--));
-                if (i< 0)
-                {
-                    gameTime.cancel();
-                    pf.clearPlayfield();
-                    gv.clearGame();
-                    gv.resetBg();
-                    startButton.setEnabled(true);
-                    typeDropdown.setEnabled(true);
-                    repaint();
-                }
-            }
-        }, 0, 1000);
-        
+                
         //Schedule a repaint at set time intervals for rendering changes made by the controller/playfield
         //Draw new tileset every refresh
         ScheduledExecutorService gameSchedule = Executors.newScheduledThreadPool(1);
@@ -285,8 +274,11 @@ public class MatchingMain extends javax.swing.JFrame
         Runnable gamePainter = new Runnable() {
         //paintTimer.scheduleAtFixedRate(new TimerTask() {
             int t = 2400;
+            
             @Override
             public void run() {
+                //Change the time shown on the screen for countdown
+                timer.setText(String.valueOf(t/40));
                 gv.clearGame();
                 //Loop through the playfield and get tile data to send to the gameview
                 for (int i = 0; i < pf.getGridSize(); i++)
@@ -319,11 +311,14 @@ public class MatchingMain extends javax.swing.JFrame
                 if (t < 0)
                 {
                     //paintTimer.cancel();
-                    gameSchedule.shutdownNow();
                     pf.clearPlayfield();
                     gv.clearGame();
                     gv.resetBg();
+                    startButton.setEnabled(true);
+                    typeDropdown.setEnabled(true);
+                    gv.resetBg();
                     repaint();
+                    gameSchedule.shutdownNow();                    
                 }
             }
         };

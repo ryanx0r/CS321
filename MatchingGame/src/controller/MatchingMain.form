@@ -91,7 +91,7 @@
                       <Component id="typeComboLabel" max="32767" attributes="0"/>
                       <Component id="startButton" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <EmptySpace pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
