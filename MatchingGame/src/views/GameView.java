@@ -74,7 +74,6 @@ public class GameView extends JPanel
             setBg(type);
             setImages(type);
         }
-
     }
     
     /**
@@ -137,7 +136,8 @@ public class GameView extends JPanel
      */
     public void resetBg()
     {
-        this.bgImage = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/logo.png"));
+        bgImage = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/logo.png"));
+        bgImage.getWidth(null);
         tileType = -1;
     }
     
@@ -191,7 +191,7 @@ public class GameView extends JPanel
         else if (tileType == -1)
         {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.drawImage(bgImage, 0, 300, 725, 90, null);
+            g2d.drawImage(bgImage, 0, 300, 725, 92, null);
         }
         
         //Paint each tile
