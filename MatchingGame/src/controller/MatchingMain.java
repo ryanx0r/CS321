@@ -69,6 +69,7 @@ public class MatchingMain extends javax.swing.JFrame
             profileDropdown.addItem(user.getName());
             model.addRow(new Object[]{user.getName(), user.getScore()});
         }
+        
         //Sort the high scores by setting a sorter on the table
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(scoreTable.getModel());
         scoreTable.setRowSorter(sorter);
@@ -491,7 +492,6 @@ public class MatchingMain extends javax.swing.JFrame
                     model.setRowCount(0);
                     for (User user : currentUsers)
                     {
-                        profileDropdown.addItem(user.getName());
                         model.addRow(new Object[]{user.getName(), user.getScore()});
                     }
                     pf.clearPlayfield();

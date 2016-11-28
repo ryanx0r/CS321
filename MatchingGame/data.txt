@@ -1,3 +1,3 @@
 Ryan,38625,2
-John,12750,2
-herpdarp,125,3
+John,35625,4
+herpdarp,19125,3
