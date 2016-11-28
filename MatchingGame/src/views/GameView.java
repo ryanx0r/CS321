@@ -50,12 +50,14 @@ public class GameView extends JPanel
     {        
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setBackground(Color.black);
-        tiles = new ArrayList();
+        this.tileType = -1;
+        this.tiles = new ArrayList();
         //Set up colors for tiles that use them
-        colors = new int[tileVariation][3];
+        this.colors = new int[tileVariation][3];
         //Set up images for tiles that use them
-        images = new Image[tileVariation];
+        this.images = new Image[tileVariation];
         setColors();
+        resetBg();
     }
     
     /**
@@ -67,17 +69,12 @@ public class GameView extends JPanel
     public void setTileType(int type)
     {
         this.tileType = type;
-        //If the tile type was 1
-        if (type == 1)
+        if (type > 0)
         {
-            setBg();
-            setImages(1);
+            setBg(type);
+            setImages(type);
         }
-        //If the tile type was 2
-        else if (type == 2)
-        {
-            setImages(2);
-        }
+
     }
     
     /**
@@ -95,7 +92,7 @@ public class GameView extends JPanel
             tiles.add(new EllipseView(colors[tileData[0]][0],colors[tileData[0]][1],colors[tileData[0]][2],tileData[1],tileData[2],tileData[3], tileSize));
         }
         //ImageView tile types
-        else if ((tileType == 1) || (tileType == 2))
+        else if (tileType >= 1)
         {
             tiles.add(new ImageView(tileData[1], tileData[2], tileData[3], tileSize, images[tileData[0]]));
         }
@@ -126,10 +123,13 @@ public class GameView extends JPanel
     
     /**
      * This method sets the background image for the specific tile type selected.
+     * @param type An integer argument passed in that will be used to load the proper images.
      */
-    public void setBg()
+    public void setBg(int type)
     {
-        bgImage = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/bg.jpg"));
+        type = type-1;
+        String tmp = "images/bg" + type + ".jpg";
+        this.bgImage = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(tmp));
     }
     
     /**
@@ -137,7 +137,8 @@ public class GameView extends JPanel
      */
     public void resetBg()
     {
-        bgImage = null;
+        this.bgImage = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/logo.png"));
+        tileType = -1;
     }
     
     //
@@ -148,21 +149,27 @@ public class GameView extends JPanel
      */
     public void setImages(int type)
     {
-        //Planets images
-        if (type == 1)
-        {
-            for (int i = 0; i < tileVariation; i++)
-            {
-                images[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/planet" + i + ".png"));
-            }
+        String name = "";
+        switch (type) {
+            case 1:
+                name = "planet";
+                break;
+            case 2:
+                name = "fruit";
+                break;
+            case 3:
+                name = "fantasy";
+                break;
+            case 4:
+                name = "animal";
+                break;
+            default:
+                break;
         }
-        //Fruit images
-        else if (type == 2)
+        
+        for (int i = 0; i < tileVariation; i++)
         {
-            for (int i = 0; i < tileVariation; i++)
-            {
-                images[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/fruit" + i + ".png"));
-            }
+            images[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/" + name + i + ".png"));
         }
     }
     
@@ -176,10 +183,15 @@ public class GameView extends JPanel
         super.paintComponent(g);
         
         //Paint the background image if required
-        if (tileType == 1)
+        if (tileType >= 1)
         {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.drawImage(bgImage, 0, 0, null);
+            g2d.drawImage(bgImage, 0, 0, 750, 820, null);
+        }
+        else if (tileType == -1)
+        {
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.drawImage(bgImage, 0, 300, 725, 90, null);
         }
         
         //Paint each tile

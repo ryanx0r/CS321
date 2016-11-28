@@ -35,7 +35,11 @@ public class PlayField
     //If the playfield has all tile slots filled
     private boolean tilesFull;
     
+    //Number of deleted tiles on move
     private int numDeleted;
+    
+    //Current player score
+    private int score;
     
     /**
      * This function is the initializer for the playfield
@@ -91,6 +95,27 @@ public class PlayField
     public void setPrevTile(int y, int x)
     {
         this.prevTile = this.tiles[y][x];
+    }
+    
+    public int getScore()
+    {
+        return this.score;
+    }
+    
+    public void resetScore()
+    {
+        this.score = 0;
+    }
+    
+    public void addToScore(int tmp)
+    {
+        //Score multiplier based on num deleted on player move
+        this.score += tmp*125;
+    }
+    
+    public int getNumDeleted()
+    {
+        return this.numDeleted;
     }
     
     //Build the tiles
@@ -414,6 +439,7 @@ public class PlayField
                 }
             }
         }
+        addToScore(this.numDeleted);
     }
     
     //Move tiles to fill in voids left after deleting matching tiles
@@ -501,5 +527,7 @@ public class PlayField
         this.tilesFull = false;
         this.tileHighlighted = false;
         this.playfieldBusy = false;
+        this.numDeleted = 0;
+        this.score = 0;
     }
 }
