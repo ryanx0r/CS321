@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author Ryan Manecke, Sarah Pearce, Collin Mitchell
  */
 public class CSVWrite {
-    File data = null;
+    private File data = null;
     private ArrayList<User> userlist;
     
     /**
@@ -27,7 +27,7 @@ public class CSVWrite {
      */
     public CSVWrite()
     {
-        data = new File(System.getProperty("user.dir") + "\\data.txt");
+        data = new File(System.getProperty("user.dir") + "\\data.csv");
         userlist = new ArrayList();
     }
     

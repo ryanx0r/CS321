@@ -32,7 +32,7 @@ public class CSVRead {
      */
     public CSVRead()
     {
-        data = new File(System.getProperty("user.dir") + "\\data.txt");
+        data = new File(System.getProperty("user.dir") + "\\data.csv");
         csvSplit = ",";
         line = "";
         br = null;
