@@ -80,45 +80,80 @@ public class PlayField
         return this.tileHighlighted;
     }
     
-    //Set tile highlighted 
+    /**
+     * This function sets the boolean flag of whether or not a tile has been highlighted 
+     * by the user.
+     * @param tf A boolean value of true or false to set the private variable accordingly.
+     */
     public void setTileHighlighted(boolean tf)
     {
         this.tileHighlighted = tf;
     }
-            
-    //Return status of given tile
+
+    /**
+     * This function returns the status of a given tile based on the x and y location.
+     * @param y The y value of the tile that we want the status of.
+     * @param x the x value of the tile that we want the status of.
+     * @return Returns the requested Tile object.
+     */
     public Tile tileStatus(int y, int x)
     {
         return this.tiles[y][x];
     }
     
+    /**
+     * Sets the previously highlighted tile as a marker for checking matches.
+     * @param y The y value of the tile that will be marked as previous.
+     * @param x The x value of the tile that will be marked as previous.
+     */
     public void setPrevTile(int y, int x)
     {
         this.prevTile = this.tiles[y][x];
     }
     
+    /**
+     * This method returns the current player score.
+     * @return Returns the current score variable value.
+     */
     public int getScore()
     {
         return this.score;
     }
     
+    /**
+     * This method resets the score to 0 when a new game is started.
+     */
     public void resetScore()
     {
         this.score = 0;
     }
     
+    /**
+     * This method is what contains the multiplier for the scoring system.
+     * An integer is passed in and multiplied by the multiplier and added to the score.
+     * @param tmp An integer that is based on the number of tiles that were removed in the last player move.
+     */
     public void addToScore(int tmp)
     {
         //Score multiplier based on num deleted on player move
         this.score += tmp*125;
     }
     
+    /**
+     * This method returns the current number of deleted tiles.
+     * @return Returns the number of deleted tiles during the last player move.
+     */
     public int getNumDeleted()
     {
         return this.numDeleted;
     }
-    
-    //Build the tiles
+
+    /**
+     * This method builds the tile set for the playing field.
+     * It picks a random tile "type" for each tile and compares it
+     * with two tiles to the left and two tiles above to make sure 
+     * there are no matches when the game starts.
+     */
     public void buildTiles()
     {
         int tileType = 0;
@@ -143,7 +178,15 @@ public class PlayField
         }
     }
     
-    //Swap the places of selected tiles
+    /**
+     * This method Swaps the places of selected tiles.
+     * The prevTile private variable must be set for tiles to be swapped.
+     * The method checks to which side of the prevTile that the next tile was 
+     * selected (above, below, to the left, or to the right) and swaps the tiles.
+     * A swap is not performed on tiles that are not adjacent.
+     * @param i Y value of the newly selected tile
+     * @param j X value of the newly selected tile
+     */
     public void swapTiles(int i, int j)
     {
         if (this.playfieldBusy)
@@ -317,6 +360,12 @@ public class PlayField
       
     //Check if tiles are in a row/col greater than 3 matching
     //Run after moving tiles
+
+    /**
+     * This method Checks if tiles are in a row/col greater than 3 matching.
+     * This is run after the player has made a successful swap.
+     * If it finds any matches it marks the tiles for deletion.
+     */
     public void scanForMatch()
     {
         this.playfieldBusy = true;
@@ -377,9 +426,12 @@ public class PlayField
         }
         //playfieldBusy = false;
     }
-    
-    //Test scan, same as other scan but doesn't make modifications
-    //used to move tiles back after swap if no matches found, temporary solution
+
+    /**
+     * This method is a test scan, same as other scanForMatch but doesn't make modifications.
+     * Used to move tiles back after swap if no matches were found.
+     * @return
+     */
     public boolean testscanForMatch()
     {
         this.playfieldBusy = true;
@@ -415,14 +467,21 @@ public class PlayField
         this.playfieldBusy = false;
         return false;
     }
-    
-    //Remove the specified tile from the grid
+
+    /**
+     * This method Removes the specified tile from the grid.
+     * @param y The Y value of the tile to remove.
+     * @param x The X value of the tile to remove.
+     */
     public void deleteTile(int y, int x)
     {
         tiles[y][x] = null;
     }
-    
-    //Remove tiles that are marked for deletion
+
+    /**
+     * This method Removes tiles that are marked for deletion.
+     * The tiles were marked by the scanForMatch method if a match was found.
+     */
     public void deleteMarkedTiles()
     {
         //Loop through and set tiles marked for deletion to null
@@ -441,9 +500,13 @@ public class PlayField
         }
         addToScore(this.numDeleted);
     }
-    
-    //Move tiles to fill in voids left after deleting matching tiles
-    //Start at the bottom
+
+    /**
+     * This method moves tiles down the playfield to fill in voids 
+     * left by deleted tiles.  It starts at the bottom and works its way 
+     * up to figure out how many new tiles need to be added and calls 
+     * addTiles.
+     */
     public void adjustTiles()
     {
         this.playfieldBusy = true;
@@ -484,7 +547,11 @@ public class PlayField
         this.playfieldBusy = false;
     }
     
-    //Add new tiles for ones that were deleted with matches
+    /**
+     * This method Adds new tiles for ones that were deleted with matches.
+     * It only adds tiles to the empty spots in the top row then calls 
+     * adjustTiles to move them down the playfield.
+     */
     public void addTiles()
     {
         this.playfieldBusy = true;
@@ -511,8 +578,11 @@ public class PlayField
         }
         //playfieldBusy = false;
     }
-    
-    //Erase playfield for new games
+
+    /**
+     * This method erases the playfield and clears out variables 
+     * at the end of a game.
+     */
     public void clearPlayfield()
     {
         this.prevTile = null;

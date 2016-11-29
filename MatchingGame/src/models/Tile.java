@@ -32,8 +32,13 @@ public class Tile
     
     //Boolean that shows whether or not this tile will be removed
     private boolean flaggedForDelete;
-    
-    //Default constructor to set x y and other values
+
+    /**
+     * This method is the Default constructor to set x y and other values
+     * @param type An integer specifying the type of this tile (used for checking for matches).
+     * @param x The X location of this tile
+     * @param y The Y location of this tile
+     */
     public Tile (int type, int x, int y)
     {
         this.currX = x;
@@ -43,56 +48,88 @@ public class Tile
         this.flaggedForDelete = false;
         this.animDelay = 30;
     }
-    
-    //See if this tile should be removed
+
+    /**
+     * This method returns the status of the tile.
+     * This allows the playfield to determine if this tile was 
+     * flagged for removal.
+     * @return
+     */
     public boolean getStatus()
     {
         return this.flaggedForDelete;
     }
-    
-    //Set status for removal
+
+    /**
+     * This method Sets status of the tile for removal.
+     * It will be deleted on the next deletion move.
+     */
     public void setStatus()
     {
         this.flaggedForDelete = true;
     }
-    
-    //Get the index of the tile type
+
+    /**
+     * This method returns the type of this tile.
+     * This is used to determine if a match is made 
+     * with surrounding tiles.
+     * @return Returns the type of this tile.
+     */
     public int getTileType()
     {
         return this.tileType;
     }
-    
-    //Get the x value
+
+    /**
+     * This method returns the X location of the tile.
+     * @return Returns the X location of the tile
+     */
     public int getX()
     {
         return this.currX;
     }
-    
-    //Get the y value
+
+    /** 
+     * This method returns the Y location of the tile.
+     * @return Returns the Y location of the tile.
+     */
     public int getY()
     {
         return this.currY;
     }
-    
-    //Set the x value
+
+    /**
+     * This method sets the X location of the tile
+     * @param x The value that X will be set to.
+     */
     public void setX(int x)
     {
         this.currX = x;
     }
-    
-    //Set the y value
+
+    /**
+     * This method sets the Y location of the tile.
+     * @param y The value that Y will be set to.
+     */
     public void setY(int y)
     {
         this.currY = y;
     }
-    
-    //Return the current alpha value for drawing
+
+    /**
+     * This method returns the current alpha value for drawing.
+     * This value is used to make the tile appear to highlight 
+     * when it is selected by the player.
+     * @return
+     */
     public int getAlpha()
     {
         return this.alpha;
     }
-    
-    //Move the tile up one segment
+
+    /**
+     * This method creates a thread to animate movement of the tile up one segment.
+     */
     public void moveUp()
     {
         unHighlight();
@@ -115,8 +152,10 @@ public class Tile
         schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
     
-    //Move the tile down one segment
-    //@multiple Used to move down more than one space if needed to fill voids
+    /**
+     * This method creates a thread to animate movement of the tile down one segment.
+     * @param multiple Multiplier used to move down more than one space if needed to fill voids.
+     */
     public void moveDown(int multiple)
     {
         unHighlight();
@@ -138,7 +177,10 @@ public class Tile
         //Start the thread with fixed delay on a schedule
         schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
-    //Without multiple
+
+    /**
+     * This method creates a thread to animate movement of the tile down one segment.
+     */
     public void moveDown()
     {
         unHighlight();
@@ -160,8 +202,10 @@ public class Tile
         //Start the thread with fixed delay on a schedule
         schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
-    
-    //Move the tile left one segment
+
+    /**
+     * This method creates a thread to animate movement of the tile left one segment.
+     */
     public void moveLeft()
     {
         unHighlight();
@@ -183,8 +227,10 @@ public class Tile
         //Start the thread with fixed delay on a schedule
         schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
-    
-    //Move the tile right one segment
+
+    /**
+     * This method creates a thread to animate movement of the tile right one segment.
+     */
     public void moveRight()
     {
         unHighlight();
@@ -206,20 +252,30 @@ public class Tile
         //Start the thread with fixed delay on a schedule
         schedule.scheduleWithFixedDelay(movement, 0, this.animDelay, TimeUnit.MILLISECONDS);
     }
-    
-    //Highlight the clicked tile
+
+    /**
+     * This method Highlights the clicked tile by changing the alpha value.
+     */
     public void highlight()
     {
         this.alpha = 255;
     }
-    
-    //Get rid of the highlight on the tile
+
+    /**
+     * This method gets rid of the highlight on the tile by lowering the alpha value.
+     */
     public void unHighlight()
     {
         this.alpha = 127;
     }
-    
-    //Contains method to check if a mouse click is on the tile
+
+    /**
+     * This method is for checking to see if a mouse click from the player 
+     * occurred within this tile.
+     * @param x The X value of where the mouse click occurred.
+     * @param y The Y value of where the mouse click occurred.
+     * @return Returns true if click was on the tile, false if not.
+     */
     public boolean contains(int x, int y)
     {
         //See if the click was within the bounds

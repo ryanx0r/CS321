@@ -290,10 +290,8 @@ public class MatchingMain extends javax.swing.JFrame
                         .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addProfiletext)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(scoreLabel))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                            .addComponent(scoreLabel)
+                            .addComponent(jLabel2))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -379,7 +377,7 @@ public class MatchingMain extends javax.swing.JFrame
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(menuPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 709, Short.MAX_VALUE)
-                    .addComponent(testPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(testPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 709, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
@@ -520,24 +518,26 @@ public class MatchingMain extends javax.swing.JFrame
     private void addProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProfileButtonActionPerformed
         //Open a popup to get profile name
         String name = JOptionPane.showInputDialog("What is your name?");
-        if (name != null && name.contains(","))
-        {
-            JOptionPane.showMessageDialog(null, "Name contains a comma, enter another name.");
-            name = JOptionPane.showInputDialog("What is your name?");
-        }
-        if ((name != null) && (!"".equals(name)))
+        //Remove any special characters from name if player added them
+        String  altName = name.replaceAll("[^\\w\\s]","");
+//        if (name != null && name.contains(","))
+//        {
+//            JOptionPane.showMessageDialog(null, "Name contains a comma, enter another name.");
+//            name = JOptionPane.showInputDialog("What is your name?");
+//        }
+        if ((altName != null) && (!"".equals(altName)))
         {
             //Create a tmp user
             User tmp = new User();
             //Set the user default data
-            tmp.setName(name);
+            tmp.setName(altName);
             tmp.setScore(0);
             tmp.setPref(typeDropdown.getSelectedIndex());
-            //Add user to the combobox and select new profile
+            //Add user to the combobox and user arraylist and select new profile
             int tmpidx = currentUsers.size();
             currentUsers.add(tmpidx, tmp);
-            profileDropdown.addItem(tmp.getName());
-            profileDropdown.setSelectedItem(name);
+            profileDropdown.addItem(altName);
+            profileDropdown.setSelectedItem(altName);
             wFile.writeFile(currentUsers);
         }
     }//GEN-LAST:event_addProfileButtonActionPerformed
