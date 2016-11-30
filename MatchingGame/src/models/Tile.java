@@ -53,7 +53,7 @@ public class Tile
      * This method returns the status of the tile.
      * This allows the playfield to determine if this tile was 
      * flagged for removal.
-     * @return
+     * @return Returns the status of this tile (whether or not the tile needs to be deleted)
      */
     public boolean getStatus()
     {
@@ -120,7 +120,7 @@ public class Tile
      * This method returns the current alpha value for drawing.
      * This value is used to make the tile appear to highlight 
      * when it is selected by the player.
-     * @return
+     * @return Returns the alpha value of the tile.
      */
     public int getAlpha()
     {

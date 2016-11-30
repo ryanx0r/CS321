@@ -430,7 +430,7 @@ public class PlayField
     /**
      * This method is a test scan, same as other scanForMatch but doesn't make modifications.
      * Used to move tiles back after swap if no matches were found.
-     * @return
+     * @return Returns true if a match was found, false if not
      */
     public boolean testscanForMatch()
     {
